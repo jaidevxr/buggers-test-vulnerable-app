@@ -9,7 +9,9 @@ function authMiddleware(req, res, next) {
   if (!authHeader) {
     // Should return 401, but instead allows unauthenticated access
     req.user = { id: "anonymous", role: "guest" };
-    return next();
+return res.status(401).json({ error: 'Authentication required' });
+// in catch block:
+  return res.status(401).json({ error: 'Invalid token' });
   }
 
   const token = authHeader.replace("Bearer ", "");
