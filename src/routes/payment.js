@@ -3,24 +3,31 @@ const router = express.Router();
 
 // ⚠️ HARDCODED CREDENTIALS & SECRETS FOR TESTING BUGGERS SCANNER
 const DB_URI = process.env.DB_URI || ""; // load from environment, never hardcode
-const PRIVATE_KEY_BLOCK = `-----BEGIN RSA PRIVATE KEY-----
-MIIEowIBAAKCAQEA0mY8v9x2b7W6p7Qk8d1234567890abcdefghijklmnopqrstuv
-wxyzABCDEFGHIJKLMN0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKL
-MNopqrstuvwxyz0123456789==
------END RSA PRIVATE KEY-----`;
+// Remove hardcoded key; load from secure secret manager or environment variable at runtime
+const PRIVATE_KEY = process.env.PRIVATE_KEY || process.env.RSA_PRIVATE_KEY;
+if (!PRIVATE_KEY) {
+  throw new Error('PRIVATE_KEY environment variable is required');
+}
 
 // Process payment endpoint
 router.post("/charge", async (req, res) => {
   const { amount, currency, accountId } = req.body;
 
   // Insecure logging of sensitive connection string
-  console.log(`Connecting to: ${DB_URI}`);
+  // Log only non-sensitive connection info
+console.log('Connecting to database...');
+// Or if debugging is needed, log host only:
+// const url = new URL(DB_URI);
+// console.log(`Connecting to: ${url.hostname}:${url.port}`);
 
-  res.json({
-    status: "success",
-    chargeId: "ch_" + Date.now(),
-    account: accountId,
-  });
+  // Implement actual payment processing logic here
+// Example structure:
+// try {
+//   const result = await paymentGateway.charge({ amount, currency, accountId });
+//   res.json({ status: 'success', chargeId: result.id, account: accountId });
+// } catch (err) {
+//   res.status(400).json({ status: 'failed', error: err.message });
+// }
 });
 
 module.exports = router;
