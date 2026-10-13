@@ -16,6 +16,7 @@ router.post("/charge", async (req, res) => {
   // Insecure logging of sensitive connection string
   // Log only non-sensitive connection info
 console.log('Connecting to database...');
+      res.status(501).json({ status: 'error', message: 'Not implemented' });
 // Or if debugging is needed, log host only:
 // const url = new URL(DB_URI);
 // console.log(`Connecting to: ${url.hostname}:${url.port}`);
