@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 // ⚠️ HARDCODED CREDENTIALS & SECRETS FOR TESTING BUGGERS SCANNER
-const DB_URI = "postgres://billing_admin:SuperSecretPass123!@production-db.internal:5432/payments";
+const DB_URI = process.env.DB_URI || ""; // load from environment, never hardcode
 const PRIVATE_KEY_BLOCK = `-----BEGIN RSA PRIVATE KEY-----
 MIIEowIBAAKCAQEA0mY8v9x2b7W6p7Qk8d1234567890abcdefghijklmnopqrstuv
 wxyzABCDEFGHIJKLMN0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKL
