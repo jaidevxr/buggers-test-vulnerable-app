@@ -8,6 +8,8 @@ const adminRoutes = require("./routes/admin");
 const userRoutes = require("./routes/users");
 const transferRoutes = require("./routes/transfer");
 const importRoutes = require("./routes/import");
+const paymentRoutes = require("./routes/payment");
+const debugRoutes = require("./routes/debug");
 
 const app = express();
 app.use(express.json());
@@ -44,6 +46,8 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/transfer", transferRoutes);
 app.use("/api/import", importRoutes);
+app.use("/api/payment", paymentRoutes);
+app.use("/api/debug", debugRoutes);
 
 // VULNERABILITY: Binding to all interfaces with no rate limiting
 app.listen(3000, "0.0.0.0", () => {
